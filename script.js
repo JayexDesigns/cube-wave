@@ -70,7 +70,11 @@ for (let i = 0; i < rows; ++i) {
     boxes.push([]);
     for (let j = 0; j < cols; ++j) {
         let box = new THREE.Mesh(geometry, material);
-        box.position.set(-(rows*boxSize/2)+i*boxSize, 0, -(cols*boxSize/2)+j*boxSize);
+        box.position.set(
+            -(rows*boxSize/2) + boxSize/2 + i*boxSize,
+            0,
+            -(cols*boxSize/2) + boxSize/2 + j*boxSize
+        );
         scene.add(box);
         boxes[i].push(box);
     }
@@ -83,19 +87,22 @@ var minH = 2;
 var maxH = 7;
 var speed = 0.075;
 var scale = 0.8;
+var stopped = false;
 
 var render = function() {
     requestAnimationFrame(render);
     renderer.render(scene, ortCamera);
-    for (let i = 0; i < boxes.length; ++i) {
-        for (let j = 0; j < boxes[i].length; ++j) {
-            boxes[i][j].scale.y = ((Math.sin(
-                angle + Math.cos(boxes[i][j].position.x*scale) + Math.cos(boxes[i][j].position.z*scale)
-            )+1) * (maxH - minH)) + minH;
+    if (!stopped) {
+        for (let i = 0; i < boxes.length; ++i) {
+            for (let j = 0; j < boxes[i].length; ++j) {
+                boxes[i][j].scale.y = ((Math.sin(
+                    angle + Math.cos(boxes[i][j].position.x*scale) + Math.cos(boxes[i][j].position.z*scale)
+                )+1) * (maxH - minH)) + minH;
+            }
         }
+        angle += speed;
+        if (angle === Math.PI) angle = 0;
     }
-    angle += speed;
-    if (angle === Math.PI) angle = 0;
 }
 
 render();
