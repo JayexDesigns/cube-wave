@@ -70,7 +70,7 @@ for (let i = 0; i < rows; ++i) {
     boxes.push([]);
     for (let j = 0; j < cols; ++j) {
         let box = new THREE.Mesh(geometry, material);
-        box.position.set(-Math.floor(rows*boxSize/2)+i*boxSize, 0, -Math.floor(cols*boxSize/2)+j*boxSize);
+        box.position.set(-(rows*boxSize/2)+i*boxSize, 0, -(cols*boxSize/2)+j*boxSize);
         scene.add(box);
         boxes[i].push(box);
     }
@@ -90,11 +90,12 @@ var render = function() {
     for (let i = 0; i < boxes.length; ++i) {
         for (let j = 0; j < boxes[i].length; ++j) {
             boxes[i][j].scale.y = ((Math.sin(
-                angle + Math.cos(Math.abs(boxes[i][j].position.x)*scale) + Math.cos(Math.abs(boxes[i][j].position.z)*scale)
+                angle + Math.cos(boxes[i][j].position.x*scale) + Math.cos(boxes[i][j].position.z*scale)
             )+1) * (maxH - minH)) + minH;
         }
     }
     angle += speed;
+    if (angle === Math.PI) angle = 0;
 }
 
 render();
