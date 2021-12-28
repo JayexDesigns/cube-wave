@@ -5,5 +5,5 @@
 <p>Using Three Js I created this simple animation of a group of boxes changing its size by using the sine and cosine functions, it's completely modifiable and soonish I will upload it to Wallpaper Engine</p>
 <br/>
 <img src="./preview.gif">
-<br/><br/>
+<br/>
 <h2 align="center"><a href="https://jayexdesigns.github.io/cube-wave/">TRY IT!</a></h2>
