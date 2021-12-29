@@ -26,7 +26,7 @@ var ortCamera = new THREE.OrthographicCamera(
     1000
 );
 
-ortCamera.position.set(5,5,5);
+ortCamera.position.set(15,15,15);
 ortCamera.rotation.set(0,0,0);
 ortCamera.lookAt(scene.position);
 
