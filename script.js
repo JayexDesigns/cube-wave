@@ -85,8 +85,8 @@ for (let i = 0; i < rows; ++i) {
 var angle = 0;
 var minH = 2;
 var maxH = 7;
-var speed = 0.075;
-var scale = 0.8;
+var speed = 0.065;
+var scale = 2.75;
 var stopped = false;
 
 var render = function() {
@@ -95,9 +95,9 @@ var render = function() {
     if (!stopped) {
         for (let i = 0; i < boxes.length; ++i) {
             for (let j = 0; j < boxes[i].length; ++j) {
-                boxes[i][j].scale.y = ((Math.sin(
-                    angle + Math.cos(boxes[i][j].position.x*scale) + Math.cos(boxes[i][j].position.z*scale)
-                )+1) * (maxH - minH)) + minH;
+                let distance = boxes[i][j].position.x**2 + boxes[i][j].position.z**2;
+                distance = -(distance / scale);
+                boxes[i][j].scale.y = ((Math.sin(angle + distance)+1) * (maxH - minH)) + minH;
             }
         }
         angle += speed;
@@ -106,3 +106,21 @@ var render = function() {
 }
 
 render();
+
+
+
+
+
+const controller = {
+    changeBoxColor: (color) => {
+        material = new THREE.MeshLambertMaterial({color:color});
+        for (let i = 0; i < boxes.length; ++i) {
+            for (let j = 0; j < boxes[i].length; ++j) {
+                boxes[i][j].material.color.setHex(color);
+            }
+        }
+    },
+    changeSceneColor: (color) => {
+        scene.background = new THREE.Color(color);
+    },
+};
